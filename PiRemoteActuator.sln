@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteActuator.Terminal", "RemoteActuator.Console\RemoteActuator.Terminal.csproj", "{5C521DE4-1443-458A-8097-E96DF53E839A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteActuator.Terminal", "RemoteActuator.Terminal\RemoteActuator.Terminal.csproj", "{5C521DE4-1443-458A-8097-E96DF53E839A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RemoteActuator.Core", "RemoteActuator.Core\RemoteActuator.Core.csproj", "{B5EEBE2F-4C05-4D5B-B81B-CC7CFEB3850A}"
 EndProject
