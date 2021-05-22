@@ -1,6 +1,6 @@
 ﻿using RemoteActuator.Models;
 
-namespace RemoteActuator.Core.Networking
+namespace RemoteActuator.Core.Networking.Packets
 {
     public interface IPacketSender
     {

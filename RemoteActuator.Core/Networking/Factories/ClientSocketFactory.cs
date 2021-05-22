@@ -1,7 +1,7 @@
-﻿using System.Net;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 
 using RemoteActuator.Core.Networking.AddressResolution;
+using RemoteActuator.Core.Networking.Proxies;
 
 namespace RemoteActuator.Core.Networking.Factories
 {
@@ -14,15 +14,13 @@ namespace RemoteActuator.Core.Networking.Factories
             _addressResolver = addressResolver;
         }
 
-        public Socket CreateSocket()
+        public IClientSocket CreateClientSocket()
         {
-            var address = _addressResolver.GetAddress();
-
-            var endpoint = new IPEndPoint(address.IpAddress, address.Port);
-
+            var endpoint = _addressResolver.GetEndpoint();
+            
             var socket = new Socket(endpoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
-            return socket;
+            return new ClientSocket(endpoint, new SocketProxy(socket));
         }
     }
 }

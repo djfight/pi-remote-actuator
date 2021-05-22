@@ -18,25 +18,23 @@ namespace RemoteActuator.Core.Tests.Networking.Factories
         {
             // arrange
 
-            var addressMock = new Mock<IAddress>();
-            addressMock.SetupGet((address) => address.IpAddress).Returns(IPAddress.Parse("127.0.0.1"));
-            addressMock.SetupGet(address => address.Port).Returns(8080);
+            var endpoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8080);
 
             var addressResolverMock = new Mock<IAddressResolver>();
-            addressResolverMock.Setup(addressResolver => addressResolver.GetAddress()).Returns(addressMock.Object);
+            addressResolverMock.Setup(addressResolver => addressResolver.GetEndpoint()).Returns(endpoint);
 
             var sut = new ClientSocketFactory(addressResolverMock.Object);
 
             // act
 
-            var socket = sut.CreateSocket();
+            var clientSocket = sut.CreateClientSocket();
 
             // assert
 
-            Assert.NotNull(socket);
-            Assert.AreEqual(SocketType.Stream, socket.SocketType, "Socket Type");
-            Assert.AreEqual(ProtocolType.Tcp, socket.ProtocolType, "Protocol Type");
-            Assert.AreEqual(AddressFamily.InterNetwork, socket.AddressFamily, "Address Family IPV4");
+            Assert.NotNull(clientSocket);
+            Assert.AreEqual(SocketType.Stream, clientSocket.Socket.SocketType, "Socket Type");
+            Assert.AreEqual(ProtocolType.Tcp, clientSocket.Socket.ProtocolType, "Protocol Type");
+            Assert.AreEqual(AddressFamily.InterNetwork, clientSocket.Socket.AddressFamily, "Address Family IPV4");
         }
 
         // todo: write test for IPV6 address family

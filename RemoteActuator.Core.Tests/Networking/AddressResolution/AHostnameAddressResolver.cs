@@ -23,13 +23,13 @@ namespace RemoteActuator.Core.Tests.Networking.AddressResolution
 
             // act
 
-            var address = sut.GetAddress();
+            var endpoint = sut.GetEndpoint();
 
             // assert
 
-            Assert.NotNull(address);
-            Assert.AreEqual(address.IpAddress.ToString(), expectedIpv4Address, "IPV4 Address");
-            Assert.AreEqual(address.Port, Port, "Port Number");
+            Assert.NotNull(endpoint);
+            Assert.AreEqual(endpoint.Address.ToString(), expectedIpv4Address, "IPV4 Address");
+            Assert.AreEqual(endpoint.Port, Port, "Port Number");
         }
 
         [Test]
@@ -43,13 +43,13 @@ namespace RemoteActuator.Core.Tests.Networking.AddressResolution
 
             // act
 
-            var address = sut.GetAddress();
+            var endpoint = sut.GetEndpoint();
 
             // assert
 
-            Assert.NotNull(address);
-            Assert.AreEqual(address.IpAddress.ToString(), expectedIpv6Address, "IPV6 Address");
-            Assert.AreEqual(address.Port, Port, "Port Number");
+            Assert.NotNull(endpoint);
+            Assert.AreEqual(endpoint.Address.ToString(), expectedIpv6Address, "IPV6 Address");
+            Assert.AreEqual(endpoint.Port, Port, "Port Number");
         }
     }
 }

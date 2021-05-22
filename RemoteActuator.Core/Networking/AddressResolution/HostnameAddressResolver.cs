@@ -33,13 +33,13 @@ namespace RemoteActuator.Core.Networking.AddressResolution
         /// post-condition: hostname exists in DNS lookup
         /// post-condition: address is found for given address family
         /// </summary>
-        public IAddress GetAddress()
+        public IPEndPoint GetEndpoint()
         {
             var hostEntry = Dns.GetHostEntry(_hostname);
 
             var ipAddress = hostEntry.AddressList.First(address => address.AddressFamily == _addressFamily);
 
-            return new Address(ipAddress, _port);
+            return new IPEndPoint(ipAddress, _port);
         }
     }
 }
