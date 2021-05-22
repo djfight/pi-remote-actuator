@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 
 using RemoteActuator.Core.Networking.Packets;
 using RemoteActuator.Core.Networking.Proxies;
@@ -7,7 +6,7 @@ using RemoteActuator.Models;
 
 namespace RemoteActuator.Core.Networking
 {
-    public class ClientSocket : IClientSocket, IPacketSender, IDisposable
+    public class ClientSocket : IClientSocket, IPacketSender
     {
         public IPEndPoint IpEndpoint { get; }
         public ISocketProxy Socket { get; }

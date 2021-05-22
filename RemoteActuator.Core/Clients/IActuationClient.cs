@@ -1,8 +1,10 @@
-﻿using RemoteActuator.Models;
+﻿using System;
+
+using RemoteActuator.Models;
 
 namespace RemoteActuator.Core.Clients
 {
-    public interface IActuationClient
+    public interface IActuationClient : IDisposable
     {
         void SendCommand(MessageType messageType, int pinNumber, bool signal);
     }
