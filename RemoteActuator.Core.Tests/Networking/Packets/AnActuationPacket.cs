@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Text;
+
 using NUnit.Framework;
-using RemoteActuator.Core.Packets;
+
+using RemoteActuator.Core.Networking.Packets;
 using RemoteActuator.Models;
 
-namespace RemoteActuator.Core.Tests.Packets
+namespace RemoteActuator.Core.Tests.Networking.Packets
 {
     public class AnActuationPacket
     {

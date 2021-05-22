@@ -1,20 +1,21 @@
 ﻿using NUnit.Framework;
-using RemoteActuator.Core.Packets;
-using RemoteActuator.Models;
 
-namespace RemoteActuator.Core.Tests.Packets
+using RemoteActuator.Core.Networking.Packets;
+
+namespace RemoteActuator.Core.Tests.Networking.Packets
 {
     [TestFixture]
-    internal class ACommandPacketFragment
+    internal class ASignalPacketFragment
     {
         [Test]
         public void ShouldSerialize()
         {
             // arrange
 
-            const string expectedPacketFragment = "0 ";
+            const bool signal = true;
+            const string expectedPacketFragment = " 1";
 
-            var sut = new CommandPacketFragment(MessageType.DeviceCommand);
+            var sut = new SignalPacketFragment(signal);
 
             // act
 

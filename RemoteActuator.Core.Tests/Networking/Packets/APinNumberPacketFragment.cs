@@ -1,7 +1,8 @@
 ﻿using NUnit.Framework;
-using RemoteActuator.Core.Packets;
 
-namespace RemoteActuator.Core.Tests.Packets
+using RemoteActuator.Core.Networking.Packets;
+
+namespace RemoteActuator.Core.Tests.Networking.Packets
 {
     [TestFixture]
     internal class APinNumberPacketFragment

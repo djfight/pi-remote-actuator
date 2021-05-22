@@ -1,8 +1,8 @@
 ﻿using RemoteActuator.Models;
 
-namespace RemoteActuator.Core
+namespace RemoteActuator.Core.Networking
 {
-    public interface ISocketSender
+    public interface IPacketSender
     {
         void Send(IPacket packet);
     }

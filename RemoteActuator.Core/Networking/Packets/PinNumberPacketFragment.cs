@@ -2,7 +2,7 @@
 
 using RemoteActuator.Models;
 
-namespace RemoteActuator.Core.Packets
+namespace RemoteActuator.Core.Networking.Packets
 {
     internal class PinNumberPacketFragment : IPacketFragment
     {
