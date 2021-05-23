@@ -1,15 +1,16 @@
 ﻿using System.Linq;
 using System.Net;
-using System.Net.Sockets;
+
+using Microsoft.Extensions.Options;
+
+using RemoteActuator.Models;
 
 namespace RemoteActuator.Core.Networking.AddressResolution
 {
     /// <inheritdoc cref="IAddressResolver"/>
     public class HostnameAddressResolver : IAddressResolver
     {
-        private readonly string _hostname;
-        private readonly int _port;
-        private readonly AddressFamily _addressFamily;
+        private readonly ClientConfiguration _clientConfiguration;
 
         /// <summary>
         /// Attempts to resolve an address by its hostname via DNS.
@@ -22,11 +23,9 @@ namespace RemoteActuator.Core.Networking.AddressResolution
         /// </item>
         /// </list>
         /// </summary>
-        public HostnameAddressResolver(string hostname, int port, AddressFamily addressFamily)
+        public HostnameAddressResolver(IOptions<ClientConfiguration> options)
         {
-            _hostname = hostname;
-            _port = port;
-            _addressFamily = addressFamily;
+            _clientConfiguration = options.Value;
         }
 
         /// <summary>
@@ -35,11 +34,11 @@ namespace RemoteActuator.Core.Networking.AddressResolution
         /// </summary>
         public IPEndPoint GetEndpoint()
         {
-            var hostEntry = Dns.GetHostEntry(_hostname);
+            var hostEntry = Dns.GetHostEntry(_clientConfiguration.Hostname);
 
-            var ipAddress = hostEntry.AddressList.First(address => address.AddressFamily == _addressFamily);
+            var ipAddress = hostEntry.AddressList.First(address => address.AddressFamily == _clientConfiguration.AddressFamily);
 
-            return new IPEndPoint(ipAddress, _port);
+            return new IPEndPoint(ipAddress, _clientConfiguration.Port);
         }
     }
 }

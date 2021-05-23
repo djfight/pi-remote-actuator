@@ -1,8 +1,13 @@
 ﻿using System.Net.Sockets;
 
+using Microsoft.Extensions.Options;
+
+using Moq;
+
 using NUnit.Framework;
 
 using RemoteActuator.Core.Networking.AddressResolution;
+using RemoteActuator.Models;
 
 namespace RemoteActuator.Core.Tests.Networking.AddressResolution
 {
@@ -17,9 +22,11 @@ namespace RemoteActuator.Core.Tests.Networking.AddressResolution
         {
             // arrange
 
+            var mockOptions = GetClientConfiguration(AddressFamily.InterNetwork);
+
             const string expectedIpv4Address = "127.0.0.1";
 
-            var sut = new HostnameAddressResolver(Hostname, Port, AddressFamily.InterNetwork);
+            var sut = new HostnameAddressResolver(mockOptions.Object);
 
             // act
 
@@ -37,9 +44,11 @@ namespace RemoteActuator.Core.Tests.Networking.AddressResolution
         {
             // arrange
 
+            var mockOptions = GetClientConfiguration(AddressFamily.InterNetworkV6);
+
             const string expectedIpv6Address = "::1";
 
-            var sut = new HostnameAddressResolver(Hostname, Port, AddressFamily.InterNetworkV6);
+            var sut = new HostnameAddressResolver(mockOptions.Object);
 
             // act
 
@@ -50,6 +59,21 @@ namespace RemoteActuator.Core.Tests.Networking.AddressResolution
             Assert.NotNull(endpoint);
             Assert.AreEqual(endpoint.Address.ToString(), expectedIpv6Address, "IPV6 Address");
             Assert.AreEqual(endpoint.Port, Port, "Port Number");
+        }
+
+        private static Mock<IOptions<ClientConfiguration>> GetClientConfiguration(AddressFamily addressFamily)
+        {
+            var clientConfiguration = new ClientConfiguration()
+            {
+                Hostname = Hostname,
+                Port = Port,
+                AddressFamily = addressFamily
+            };
+
+            var mockOptions = new Mock<IOptions<ClientConfiguration>>();
+            mockOptions.SetupGet(options => options.Value).Returns(clientConfiguration);
+
+            return mockOptions;
         }
     }
 }

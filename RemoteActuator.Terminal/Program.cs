@@ -1,5 +1,11 @@
 ﻿using System;
 
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using RemoteActuator.Core;
+using RemoteActuator.Models;
+
 namespace RemoteActuator.Terminal
 {
     class Program
@@ -8,7 +14,22 @@ namespace RemoteActuator.Terminal
         {
             Console.WriteLine("Remote Actuator Startup...");
 
-            // todo: add dotnet startup configuration here
+            var host = Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((context, config) =>
+                {
+                    config.AddJsonFile("appsettings.json", optional: false);
+                    config.AddEnvironmentVariables();
+                })
+                .ConfigureServices((context, services) =>
+                {
+                    services.Configure<ClientConfiguration>(context.Configuration.GetSection("ClientConfiguration"));
+
+                    services.AddCore();
+
+                    services.AddHostedService<Worker>();
+                });
+
+            host.Build().Run();
         }
     }
 }
