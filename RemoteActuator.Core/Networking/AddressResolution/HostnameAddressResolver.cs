@@ -35,9 +35,9 @@ namespace RemoteActuator.Core.Networking.AddressResolution
         public IPEndPoint GetEndpoint()
         {
             var hostEntry = Dns.GetHostEntry(_clientConfiguration.Hostname);
-
-            var ipAddress = hostEntry.AddressList.First(address => address.AddressFamily == _clientConfiguration.AddressFamily);
-
+            var ipAddress =
+                hostEntry.AddressList.First(address =>
+                    address.AddressFamily == _clientConfiguration.AddressFamily);
             return new IPEndPoint(ipAddress, _clientConfiguration.Port);
         }
     }
